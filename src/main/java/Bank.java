@@ -1,11 +1,9 @@
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.LinkedBlockingQueue;
+
 
 /**
  * Created by Roshni Velluva Puthanidam on 11/11/16.
@@ -46,9 +44,11 @@ public class Bank {
         Bank bank = new Bank(numWorkers);
         try {
             ClassLoader classLoader = bank.getClass().getClassLoader();
-            File file = new File(classLoader.getResource(txnFileName).getFile());
+            InputStream txnFile = classLoader.getResourceAsStream(txnFileName);
 
-            BufferedReader br = new BufferedReader(new FileReader(file));
+            BufferedReader br = new BufferedReader(new InputStreamReader(txnFile));
+
+
             while(true){
                 String line = br.readLine();
                 if(line == null){
